@@ -10,5 +10,21 @@
  jmp $
  
  %include "print_string.asm"
- %include ""
+ %include "32bit-gdt.asm"
+ %include "32bit-print.asm"
+ %include "32bit-switch.asm"
+ 
+ [bits 32]
+ BEGIN_PM:  ;After the switch we will get here
+    mov ebx, MSG_PROT_MODE
+    call print_string_pm    ;Note that this will be written at the top right corner
+    jmp $   ;Hang
+ 
+ MSG_REAL_MODE: db "Started in 16bit real mode",0
+ MSG_PROT_MODE: db "Loaded 32bit protected mode",0
+ 
+ ;bootsector
+ 
+ times 510 -($-$$) db 0
+ dw 0xaa55
 
