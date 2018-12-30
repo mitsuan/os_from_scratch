@@ -21,7 +21,9 @@
     jmp $   ;Hang
  
  MSG_REAL_MODE: db "Started in 16bit real mode",0
- MSG_PROT_MODE: db "Loaded 32bit protected mode",0
+ MSG_PROT_MODE: db "Loaded 32bit protected mode"
+                times 100 db " "
+                db 0
  
  ;bootsector
  
