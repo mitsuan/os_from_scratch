@@ -1,18 +1,26 @@
 /* This will force us to create a kernel entry function instead of jumping to kernel.c:0x00 */
 void dummy_test_entrypoint() {
+
 }
 
-void main() {
+int  main() {
     char* video_memory = (char*) 0xb8000;
     int i=160;
 
-    char k_msg[]="---Welcome to FeynOS!---";
+    char k_msg[]="                   ***Welcome to FeynOS!***\n XXX        ";
     int j=0;
     while(k_msg[j]!='\0')
     {
-        video_memory[i]=k_msg[j];i++;
-        video_memory[i]=0x0f;i++;
+	if(k_msg[j]=='\n')
+		i=((i/160)+1)*160;
+	else
+	{	
+        	video_memory[i]=k_msg[j];i++;
+	        video_memory[i]=0x0f;i++;
+	}
+	
 	j++;
+
 	
     }
 /*
